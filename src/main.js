@@ -8,8 +8,14 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
 import ElementUI from "element-ui"
+import * as HttpUtils from './utils/HttpUtils'
 import 'element-ui/lib/theme-chalk/index.css'
 
+
+// 定义全局 axios
+Vue.prototype.HTTP = HttpUtils
+// 后端请求地址
+Vue.prototype.HOME = 'http://localhost:9100/account/'
 //全局使用ElementUI
 Vue.use(ElementUI)
 //全局注册，使用方法为:this.$axios
