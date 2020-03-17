@@ -2,7 +2,7 @@
   <div class="login_page fillcontain login-container">
     <transition name="form-fade" mode="in-out">
       <section class="form_contianer">
-        <div class="manage_tip">
+        <div ref="mm" class="manage_tip">
           <p>新思路学生管理系统</p>
         </div>
         <el-form ref="loginData" :model="loginData" :rules="rules">
@@ -62,6 +62,7 @@
       }
     },
     mounted () {
+      console.log(this.$refs);
       /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
       // if (getCookie('phone')) {
       //   this.$router.push('/manage')

@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <router-view/>
-    <ButtonView/>
+    <manage/>
   </div>
 </template>
 
 <script>
-  import ButtonView from './components/ButtonView'
+  import Admin from "./views/login/Admin";
+  import Manage from "./views/admin/manage";
 
   export default {
     name: 'App',
     components: {
-      ButtonView
+      Manage,
+      Admin
     }
   }
 </script>

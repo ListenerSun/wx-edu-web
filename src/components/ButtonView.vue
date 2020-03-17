@@ -11,7 +11,7 @@
     name: 'Main',
     methods: {
       onSubmit () {
-        this.$router.push('/Admin')
+        this.$router.push('/manage')
       }
     }
   }
