@@ -1,41 +1,42 @@
 <template>
   <div>
-    <el-card class="box-card">
-      <!--工具条-->
-      <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
-        <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
-          <el-form-item label="年份" prop="year">
-            <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
-          </el-form-item>
-          <el-form-item label="年级" prop="grade">
-            <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex">
-              <el-input placeholder="年级" prefix-icon="el-icon-search"></el-input>
-              <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
-                         :value="item.name"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-button type="primary" size="small" @click="dialogFormVisible=true">检索</el-button>
-          <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
-        </el-form>
-      </el-col>
-      <!-- 表格 -->
-      <el-table :data="classDataList" border style="width: 100%">
-        <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
-        <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
-        <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>
-        <el-table-column prop="days" label="补课天数" align="center"></el-table-column>
-        <el-table-column prop="planAmount" label="计划招生数" align="center"></el-table-column>
-        <el-table-column prop="hasAmount" label="已报名人数" align="center"></el-table-column>
-        <el-table-column prop="year" label="年份" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" width="200px">
-          <template slot-scope="scope">
-            <el-button type="primary" size="small">编辑</el-button>
-            <el-button type="danger" size="small">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
-
+    <el-col style="height: 120%">
+      <el-card class="box-card">
+        <!--工具条-->
+        <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
+          <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
+            <el-form-item label="年份" prop="year">
+              <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
+            </el-form-item>
+            <el-form-item label="年级" prop="grade">
+              <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex">
+                <el-input placeholder="年级" prefix-icon="el-icon-search"></el-input>
+                <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
+                           :value="item.name"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-button type="primary" size="small" @click="dialogFormVisible=true">检索</el-button>
+            <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
+          </el-form>
+        </el-col>
+        <!-- 表格 -->
+        <el-table :data="classDataList" border style="width: 100%">
+          <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
+          <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
+          <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>
+          <el-table-column prop="days" label="补课天数" align="center"></el-table-column>
+          <el-table-column prop="planAmount" label="计划招生数" align="center"></el-table-column>
+          <el-table-column prop="hasAmount" label="已报名人数" align="center"></el-table-column>
+          <el-table-column prop="year" label="年份" align="center"></el-table-column>
+          <el-table-column label="操作" align="center" width="200px">
+            <template slot-scope="scope">
+              <el-button type="primary" size="small">编辑</el-button>
+              <el-button type="danger" size="small">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+    </el-col>
     <!--新增弹窗-->
     <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose">
       <el-form ref="formData" :model="formData">
@@ -80,6 +81,7 @@
 
 <script>
   export default {
+    inject:['reload'],
     data() {
       return {
         classDataList: [],
@@ -177,6 +179,7 @@
       handleClose() {
         this.$refs.formData.resetFields()
         this.$emit('handleClose')
+        this.reload()
       },
       // 新增补课班级信息
       submit(formData) {
@@ -186,6 +189,7 @@
             this.$message.success('添加成功')
             this.$emit('submit')
             this.dialogFormVisible = false
+            this.reload()
           } else {
             console.log('=======')
             this.$message.warning(res.message)
