@@ -77,7 +77,7 @@
             this.HTTP.post(url, this.loginData).then((res) => {
               console.log(res)
               if (res.data.success == false) {
-                this.$message.warning(res.data.message)
+                this.$message.warning(res.message)
                 this.loading = false
               } else {
                 this.loading = false
