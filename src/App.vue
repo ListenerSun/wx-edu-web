@@ -1,19 +1,37 @@
 <template>
   <div id="app">
-    <router-view/>
     <manage/>
+    <router-view v-if="isRouterAlive">
+    </router-view>
   </div>
 </template>
 
 <script>
-  import Admin from "./views/login/Admin";
-  import Manage from "./views/admin/manage";
-
+  import Admin from './views/login/Admin'
+  import manage from './views/admin/manage'
   export default {
     name: 'App',
     components: {
-      Manage,
-      Admin
+      Admin,
+      manage
+    },
+    provide () {
+      return {
+        reload: this.reload
+      }
+    },
+    data () {
+      return {
+        isRouterAlive: true
+      }
+    },
+    methods: {
+      reload () {
+        this.isRouterAlive = false
+        this.$nextTick(function () {
+          this.isRouterAlive = true
+        })
+      }
     }
   }
 </script>

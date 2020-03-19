@@ -1,52 +1,19 @@
 <template>
-  <div class="manage_page fillcontain login-container">
-      <el-col :span="4"  style="height: 120%; ">
-        <el-menu style="min-height: 100%;  " theme="dark" router>
-          <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title"><i class="el-icon-document"></i>学生管理</template>
-            <el-menu-item index="/stuList">用户列表</el-menu-item>
-            <el-menu-item index="/classInfoList">课程管理</el-menu-item>
-            <el-menu-item index="adminList">管理员列表</el-menu-item>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title"><i class="el-icon-plus"></i>添加数据</template>
-            <el-menu-item index="addGoods">添加商品</el-menu-item>
-          </el-submenu>
-          <el-submenu index="4">
-            <template slot="title"><i class="el-icon-warning"></i>说明</template>
-            <el-menu-item index="explain">说明</el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-col>
-      <el-col :span="20" style="height: 100%;overflow: auto; background: white">
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
-      </el-col>
+  <div>
+    <mainMenu/>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "manage"
+  import mainMenu from './mainMenu'
+  export default {
+    name: 'manage',
+    components:{
+      mainMenu
     }
+  }
 </script>
 
-<style lang="less" scoped>
-  @import '../../style/mixin';
-  .manage_page{
+<style scoped>
 
-  }
-  .login-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-size: 200px;
-    min-height: 800px;
-    min-width: 630px;
-    z-index: 999;
-  }
 </style>

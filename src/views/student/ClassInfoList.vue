@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-col style="height: 120%">
+    <el-col :span="20">
       <el-card class="box-card">
         <!--工具条-->
         <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
@@ -19,6 +19,7 @@
             <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
           </el-form>
         </el-col>
+
         <!-- 表格 -->
         <el-table :data="classDataList" border style="width: 100%">
           <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
@@ -38,34 +39,36 @@
       </el-card>
     </el-col>
     <!--新增弹窗-->
-    <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose">
-      <el-form ref="formData" :model="formData">
-        <el-form-item label="班级名称" :label-width="formLabelWidth">
-          <el-input v-model="formData.className" autocomplete="off"></el-input>
+    <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose" center
+               width="30%">
+      <el-form ref="formData" :model="formData" style="padding-left: 100px">
+        <el-form-item label="班级名称" label-width="70px">
+          <el-input v-model="formData.className" autocomplete="off" style="width:150px;margin-left: 30px"></el-input>
         </el-form-item>
-        <el-form-item label="年级" :label-width="formLabelWidth">
-          <el-select v-model="formData.grade" placeholder="请选择年级">
+        <el-form-item label="年级" label-width="70px">
+          <el-select v-model="formData.grade" placeholder="请选择年级" style="width:150px;margin-left: 30px">
             <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
                        :value="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="补课科目" :label-width="formLabelWidth">
-          <el-select v-model="formData.subjectList" multiple value-key="code" placeholder="请选择">
+        <el-form-item label="补课科目" label-width="70px" style="padding-right: 40px">
+          <el-select v-model="formData.subjectList" multiple value-key="code" placeholder="请选择"
+                     style="width:150px;margin-left: 30px">
             <el-option v-for="item in subjectOptions" :key="item.code" :label="item.name" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="补课天数" :label-width="formLabelWidth">
-          <el-input v-model="formData.days" autocomplete="off"></el-input>
+        <el-form-item label="补课天数" label-width="70px">
+          <el-input v-model="formData.days" autocomplete="off" style="width:150px;margin-left: 30px"></el-input>
         </el-form-item>
-        <el-form-item label="计划招生人数" :label-width="formLabelWidth">
-          <el-input v-model="formData.planAmount" autocomplete="off"></el-input>
+        <el-form-item label="计划招生人数" label-width="100px">
+          <el-input v-model="formData.planAmount" autocomplete="off" style="width:150px;"></el-input>
         </el-form-item>
-        <el-form-item label="年份" :label-width="formLabelWidth">
-          <el-input v-model="formData.year" autocomplete="off"></el-input>
+        <el-form-item label="年份" label-width="70px">
+          <el-input v-model="formData.year" autocomplete="off" style="width:150px;margin-left: 30px"></el-input>
         </el-form-item>
-        <el-form-item label="假期类型" :label-width="formLabelWidth">
-          <el-select v-model="formData.vacationType" placeholder="请选择假期类型">
+        <el-form-item label="假期类型" label-width="70px">
+          <el-select v-model="formData.vacationType" placeholder="请选择假期类型" style="width:150px;margin-left: 30px">
             <el-option v-for="item in vacationTypeOptions" :key="item.code" :label="item.name"
                        :value="item.name"></el-option>
           </el-select>
@@ -81,8 +84,8 @@
 
 <script>
   export default {
-    inject:['reload'],
-    data() {
+    inject: ['reload'],
+    data () {
       return {
         classDataList: [],
         dialogFormVisible: false,
@@ -97,7 +100,6 @@
         searchForm: {
           grade: []
         },
-        formLabelWidth: '120px',
         vacationTypeOptions: [
           {
             name: '暑假',
@@ -172,18 +174,18 @@
     },
     methods: {
 
-      goBack() {
+      goBack () {
         console.log('go back')
       },
       // 关闭补课班级信息弹框操作
-      handleClose() {
+      handleClose () {
         this.$refs.formData.resetFields()
         this.$emit('handleClose')
         this.reload()
       },
       // 新增补课班级信息
-      submit(formData) {
-        let url = "http://localhost:9400/student/class_info/add"
+      submit (formData) {
+        let url = 'http://localhost:9400/student/class_info/add'
         this.HTTP.post(url, this.formData).then(res => {
           if (res.success == true) {
             this.$message.success('添加成功')
@@ -191,23 +193,29 @@
             this.dialogFormVisible = false
             this.reload()
           } else {
-            console.log('=======')
-            this.$message.warning(res.message)
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'warning'
+            });
           }
         }).catch(() => {
           this.$message.error('系统故障')
         })
       }
     },
-    mounted() {
+    mounted () {
       var url = 'http://localhost:9400/student/class_info/list'
       let param = {year: null, grade: ''}
       this.HTTP.post(url, param).then((res) => {
         if (res.success == true) {
           this.classDataList = res.data
         } else {
-          this.$message.warning(res.data.message)
-          // setCookie('phone', this.AdminDatas.phone, 1000 * 60)
+          this.$message({
+            showClose: true,
+            message: res.message,
+            type: 'warning'
+          });
         }
       }).catch((err) => {
         console.log(err)
@@ -218,10 +226,5 @@
 </script>
 
 <style scoped>
-  .addButton {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    margin-right: 50px;
-    margin-left: 70px;
-  }
+
 </style>
