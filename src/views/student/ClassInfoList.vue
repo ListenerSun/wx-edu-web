@@ -28,11 +28,12 @@
           <el-table-column prop="days" label="补课天数" align="center"></el-table-column>
           <el-table-column prop="planAmount" label="计划招生数" align="center"></el-table-column>
           <el-table-column prop="hasAmount" label="已报名人数" align="center"></el-table-column>
+          <el-table-column prop="enrollState" label="招生状态" align="center"></el-table-column>
           <el-table-column prop="year" label="年份" align="center"></el-table-column>
           <el-table-column label="操作" align="center" width="200px">
             <template slot-scope="scope">
               <el-button type="primary" size="small">编辑</el-button>
-              <el-button type="danger" size="small">删除</el-button>
+              <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -41,7 +42,7 @@
     <!--新增弹窗-->
     <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose" center
                width="30%">
-      <el-form ref="formData" :model="formData" style="padding-left: 100px">
+      <el-form ref="formData" :model="formData" style="padding-left: 70px">
         <el-form-item label="班级名称" label-width="70px">
           <el-input v-model="formData.className" autocomplete="off" style="width:150px;margin-left: 30px"></el-input>
         </el-form-item>
@@ -85,7 +86,7 @@
 <script>
   export default {
     inject: ['reload'],
-    data () {
+    data() {
       return {
         classDataList: [],
         dialogFormVisible: false,
@@ -174,17 +175,17 @@
     },
     methods: {
 
-      goBack () {
+      goBack() {
         console.log('go back')
       },
       // 关闭补课班级信息弹框操作
-      handleClose () {
+      handleClose() {
         this.$refs.formData.resetFields()
         this.$emit('handleClose')
         this.reload()
       },
       // 新增补课班级信息
-      submit (formData) {
+      submit(formData) {
         let url = 'http://localhost:9400/student/class_info/add'
         this.HTTP.post(url, this.formData).then(res => {
           if (res.success == true) {
@@ -202,13 +203,45 @@
         }).catch(() => {
           this.$message.error('系统故障')
         })
+      },
+      handleDelete(index) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let url = this.HOME + '/class_info/delete/' + this.classDataList[index].id
+          this.HTTP.get(url,null).then(res => {
+            if (res.success == true){
+              this.reload()
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+            }else {
+              this.$message({
+                type: 'error',
+                message: res.message
+              })
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       }
     },
-    mounted () {
-      var url = 'http://localhost:9400/student/class_info/list'
+    mounted() {
+      var url = this.HOME + '/class_info/list'
       let param = {year: null, grade: ''}
       this.HTTP.post(url, param).then((res) => {
         if (res.success == true) {
+          let enrollStateArray = ["待招生", "招生中", "已招满"]
+          res.data.forEach(item => {
+            item.enrollState = enrollStateArray[item.enrollState]
+          })
           this.classDataList = res.data
         } else {
           this.$message({

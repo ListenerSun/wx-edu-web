@@ -11,10 +11,11 @@
         <el-table :data="stuRegisterListData" border style="width: 100%">
           <el-table-column prop="studentName" label="学生姓名" width="180" align="center"></el-table-column>
           <el-table-column prop="phone" label="联系方式" width="180" align="center"></el-table-column>
-          <el-table-column prop="days" label="班级信息" align="center"></el-table-column>
+          <el-table-column prop="className" label="班级名称" align="center"></el-table-column>
+          <el-table-column prop="grade" label="年级" align="center"></el-table-column>
           <el-table-column prop="subjects" label="补课科目" width="180" align="center"></el-table-column>
           <el-table-column prop="address" label="家庭地址" align="center"></el-table-column>
-          <el-table-column prop="createTime" label="报名时间" align="center"></el-table-column>
+          <el-table-column prop="year" label="年份" align="center"></el-table-column>
         </el-table>
       </el-card>
     </el-col>
@@ -80,7 +81,12 @@
           school: '',
           address: '',
           classInfoId: 4
-
+        },
+        searchFormData:{
+          phone: '',
+          studentName: '',
+          className: '',
+          year: ''
         },
         rules: {
           studentName: [
@@ -94,11 +100,15 @@
     },
     mounted () {
       let url = this.HOME + '/class_order/list'
-      this.HTTP.get(url, null).then(res => {
+      this.HTTP.post(url, this.searchFormData).then(res => {
         if (res.success == true) {
           this.stuRegisterListData = res.data
         } else {
-          this.$message.warn(res.message)
+          this.$message({
+            showClose: true,
+            message: res.message,
+            type: 'warning'
+          })
         }
       }).catch((err) => {
         console.log(err.message)
