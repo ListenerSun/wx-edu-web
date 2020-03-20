@@ -3,8 +3,20 @@
     <el-col :span="20">
       <el-card class="box-card">
         <!--工具条-->
-        <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
+        <!--<el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
           <el-button type="primary" size="small" @click="dialogFormVisible=true">报名</el-button>
+        </el-col>-->
+        <!--工具条-->
+        <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
+          <el-form v-model="searchFormData" :inline="true" class="searchForm" label-width="70px">
+            <el-form-item label="手机号" prop="year">
+              <el-input placeholder="根据手机号查询" prefix-icon="el-icon-search"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名" prop="grade">
+                <el-input placeholder="根据姓名查询" prefix-icon="el-icon-search"></el-input>
+            </el-form-item>
+            <el-button type="primary" size="small" @click="dialogFormVisible=true">检索</el-button>
+          </el-form>
         </el-col>
 
         <!-- 表格 -->

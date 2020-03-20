@@ -6,12 +6,13 @@
       <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-user-solid"></i>学生管理</template>
-        <el-menu-item index="/stuRegisterList">学生信息</el-menu-item>
+        <el-menu-item index="/stuRegisterList">招生概况</el-menu-item>
         <el-menu-item index="/classInfoList">课程管理</el-menu-item>
+        <el-menu-item index="/index">报名</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
-        <template slot="title"><i class="el-icon-plus"></i>老师管理</template>
-        <el-menu-item index="addGoods">添加商品</el-menu-item>
+        <template slot="title"><i class="el-icon-plus"></i>讲师管理</template>
+        <el-menu-item index="addGoods">讲师审核</el-menu-item>
       </el-submenu>
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-warning"></i>说明</template>

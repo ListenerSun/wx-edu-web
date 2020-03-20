@@ -15,7 +15,7 @@
                            :value="item.name"></el-option>
               </el-select>
             </el-form-item>
-            <el-button type="primary" size="small" @click="dialogFormVisible=true">检索</el-button>
+            <el-button type="primary" size="small" @click="queryClassInfoList(searchForm)">检索</el-button>
             <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
           </el-form>
         </el-col>
@@ -32,7 +32,7 @@
           <el-table-column prop="year" label="年份" align="center"></el-table-column>
           <el-table-column label="操作" align="center" width="200px">
             <template slot-scope="scope">
-              <el-button type="primary" size="small">编辑</el-button>
+              <el-button type="primary" size="small" @click="enrollClass(scope.$index, scope)">发布招生</el-button>
               <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope)">删除</el-button>
             </template>
           </el-table-column>
@@ -86,7 +86,7 @@
 <script>
   export default {
     inject: ['reload'],
-    data() {
+    data () {
       return {
         classDataList: [],
         dialogFormVisible: false,
@@ -99,7 +99,8 @@
           vacationType: ''
         },
         searchForm: {
-          grade: []
+          grade: '',
+          year: null
         },
         vacationTypeOptions: [
           {
@@ -175,18 +176,18 @@
     },
     methods: {
 
-      goBack() {
+      goBack () {
         console.log('go back')
       },
       // 关闭补课班级信息弹框操作
-      handleClose() {
+      handleClose () {
         this.$refs.formData.resetFields()
         this.$emit('handleClose')
         this.reload()
       },
       // 新增补课班级信息
       submit(formData) {
-        let url = 'http://localhost:9400/student/class_info/add'
+        let url = this.HOME + '/class_info/add'
         this.HTTP.post(url, this.formData).then(res => {
           if (res.success == true) {
             this.$message.success('添加成功')
@@ -198,27 +199,28 @@
               showClose: true,
               message: res.message,
               type: 'warning'
-            });
+            })
           }
         }).catch(() => {
           this.$message.error('系统故障')
         })
       },
-      handleDelete(index) {
+      // 删除表格行
+      handleDelete (index) {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           let url = this.HOME + '/class_info/delete/' + this.classDataList[index].id
-          this.HTTP.get(url,null).then(res => {
-            if (res.success == true){
+          this.HTTP.get(url, null).then(res => {
+            if (res.success == true) {
               this.reload()
               this.$message({
                 type: 'success',
                 message: '删除成功!'
               })
-            }else {
+            } else {
               this.$message({
                 type: 'error',
                 message: res.message
@@ -229,31 +231,64 @@
           this.$message({
             type: 'info',
             message: '已取消删除'
-          });
-        });
+          })
+        })
+      },
+    // 发布招生
+      enrollClass(index){
+        this.$confirm('确定要发布该课程招生么?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let url = this.HOME + '/class_info/enroll/' + this.classDataList[index].id
+          this.HTTP.get(url, null).then(res => {
+            if (res.success == true) {
+              this.reload()
+              this.$message({
+                type: 'success',
+                message: '发布成功!'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.message
+              })
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消发布'
+          })
+        })
+      },
+
+      //检索方法
+      queryClassInfoList (searchForm) {
+        var url = this.HOME + '/class_info/list'
+        this.HTTP.post(url, searchForm).then((res) => {
+          if (res.success == true) {
+            let enrollStateArray = ['待招生', '招生中', '已招满','停止招生']
+            res.data.forEach(item => {
+              item.enrollState = enrollStateArray[item.enrollState]
+            })
+            this.classDataList = res.data
+          } else {
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'warning'
+            })
+          }
+        }).catch((err) => {
+          console.log(err)
+          this.$message.error('系统故障')
+        })
       }
     },
-    mounted() {
-      var url = this.HOME + '/class_info/list'
-      let param = {year: null, grade: ''}
-      this.HTTP.post(url, param).then((res) => {
-        if (res.success == true) {
-          let enrollStateArray = ["待招生", "招生中", "已招满"]
-          res.data.forEach(item => {
-            item.enrollState = enrollStateArray[item.enrollState]
-          })
-          this.classDataList = res.data
-        } else {
-          this.$message({
-            showClose: true,
-            message: res.message,
-            type: 'warning'
-          });
-        }
-      }).catch((err) => {
-        console.log(err)
-        this.$message.error('系统故障')
-      })
+    mounted () {
+      this.queryClassInfoList(this.searchForm)
     }
   }
 </script>
