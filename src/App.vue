@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-<!--    <manage/>-->
+    <index></index>
     <router-view v-if="isRouterAlive">
     </router-view>
   </div>
 </template>
 
 <script>
-  import Admin from './views/login/Admin'
-  import manage from './views/admin/manage'
+  import index from "./views/index/index";
   export default {
     name: 'App',
     components: {
-      Admin,
-      manage
+      index
     },
     provide () {
       return {

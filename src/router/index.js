@@ -6,7 +6,6 @@ import Admin from '../views/login/Admin'
 import ClassInfoList from '../views/student/ClassInfoList'
 import mainMenu from '../views/admin/mainMenu'
 import stuRegisterList from '../views/student/stuRegisterList'
-import index from '../views/index/index'
 
 const routerPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -16,11 +15,6 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'index',
-      component: index
-    },
     {
       path: '/stuRegisterList',
       name: 'stuRegisterList',
