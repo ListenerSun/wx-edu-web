@@ -73,7 +73,7 @@
         this.$refs.loginData.validate(valid => {
           if (valid) {
             this.loading = true
-            var url = this.HOME + '/user/login_by_password'
+            var url = this.HOME + '/account/user/login_by_password'
             this.HTTP.post(url, this.loginData).then((res) => {
               console.log(res)
               if (res.data.success == false) {

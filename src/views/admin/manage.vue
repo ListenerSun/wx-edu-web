@@ -1,14 +1,17 @@
 <template>
   <div>
     <mainMenu/>
+    <router-view>
+    </router-view>
   </div>
 </template>
 
 <script>
   import mainMenu from './mainMenu'
+
   export default {
     name: 'manage',
-    components:{
+    components: {
       mainMenu
     }
   }

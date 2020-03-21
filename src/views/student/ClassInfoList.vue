@@ -1,9 +1,7 @@
 <template>
   <div>
     <el-col :span="20">
-      <el-card class="box-card">
         <!--工具条-->
-        <el-col :span="24" class="el-table_headtoolbar" style="padding-bottom: 0px;">
           <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
             <el-form-item label="年份" prop="year">
               <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
@@ -18,7 +16,6 @@
             <el-button type="primary" size="small" @click="queryClassInfoList(searchForm)">检索</el-button>
             <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
           </el-form>
-        </el-col>
 
         <!-- 表格 -->
         <el-table :data="classDataList" border style="width: 100%">
@@ -37,7 +34,6 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-card>
     </el-col>
     <!--新增弹窗-->
     <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose" center
@@ -187,7 +183,7 @@
       },
       // 新增补课班级信息
       submit(formData) {
-        let url = this.HOME + '/class_info/add'
+        let url = this.HOME + '/student/class_info/add'
         this.HTTP.post(url, this.formData).then(res => {
           if (res.success == true) {
             this.$message.success('添加成功')
@@ -212,7 +208,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let url = this.HOME + '/class_info/delete/' + this.classDataList[index].id
+          let url = this.HOME + '/student/class_info/delete/' + this.classDataList[index].id
           this.HTTP.get(url, null).then(res => {
             if (res.success == true) {
               this.reload()
@@ -241,7 +237,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let url = this.HOME + '/class_info/enroll/' + this.classDataList[index].id
+          let url = this.HOME + '/student/class_info/enroll/' + this.classDataList[index].id
           this.HTTP.get(url, null).then(res => {
             if (res.success == true) {
               this.reload()
@@ -266,7 +262,7 @@
 
       //检索方法
       queryClassInfoList (searchForm) {
-        var url = this.HOME + '/class_info/list'
+        var url = this.HOME + '/student/class_info/list'
         this.HTTP.post(url, searchForm).then((res) => {
           if (res.success == true) {
             let enrollStateArray = ['待招生', '招生中', '已招满','停止招生']

@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <index></index>
     <router-view v-if="isRouterAlive">
     </router-view>
   </div>
 </template>
 
 <script>
+  import mainMenu from "./views/admin/mainMenu";
+  import manage from "./views/admin/manage";
   import index from "./views/index/index";
+  import ClassInfoList from "./views/student/ClassInfoList";
   export default {
     name: 'App',
     components: {
-      index
+      index,
+      manage,
+      mainMenu,
+      ClassInfoList
     },
     provide () {
       return {

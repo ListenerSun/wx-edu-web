@@ -1,5 +1,6 @@
 <template>
   <el-col :span="17" :push="5">
+    <mt-button type="primary" @click="toLogin">登入后台</mt-button>
     <el-col :span="17">
       <el-carousel :interval="4000" type="card" height="300px">
         <el-carousel-item v-for="item in 6" :key="item">
@@ -137,7 +138,7 @@
       }
     },
     mounted() {
-      var url = this.HOME + '/class_info/enroll/list'
+      var url = this.HOME + '/student/class_info/enroll/list'
       this.HTTP.post(url, null).then((res) => {
         if (res.success == true) {
           let enrollStateArray = ['招生中', '已招满']
@@ -159,6 +160,10 @@
     },
 
     methods: {
+      //跳转登入
+      toLogin () {
+        this.$router.push('/Admin')
+      },
       //打开弹窗
       openDialog(index) {
         this.dialogFormVisible = true;
@@ -171,7 +176,7 @@
           alert(valid)
           if (valid) {
             this.stuRegisterForm.classInfoId = this.classInfoId
-            this.HTTP.post(this.HOME + '/class_order/add', formData).then(res => {
+            this.HTTP.post(this.HOME + '/student/class_order/add', formData).then(res => {
               if (res.success == true) {
                 this.$message.success('报名成功')
                 this.$emit('submit')
@@ -190,7 +195,7 @@
       },
       // 查询报名信息接口
       queryStuRegisterInfo(searchFormData) {
-        let url = this.HOME + '/class_order/query'
+        let url = this.HOME + '/student/class_order/query'
         this.$refs.searchFormData.validate((valid) => {
           if (valid) {
             alert(1)
