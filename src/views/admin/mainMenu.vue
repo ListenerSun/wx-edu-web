@@ -1,10 +1,7 @@
 <template>
   <el-col :span="4">
-    <el-row>
-      <el-menu
-        default-active
-        text-color="black"
-        active-text-color="#ffd04b" router>
+    <div style="height:685px;background:#304156">
+      <el-menu class="menuClass" default-active text-color="white" background-color="#304156" router>
         <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-user-solid"></i>学生管理</template>
@@ -21,8 +18,7 @@
           <el-menu-item index="explain">说明</el-menu-item>
         </el-submenu>
       </el-menu>
-    </el-row>
-
+    </div>
   </el-col>
 </template>
 
@@ -33,4 +29,8 @@
 </script>
 
 <style scope>
+  .menuClass {
+    padding-right: 80px;
+    padding-top: 60px;
+  }
 </style>

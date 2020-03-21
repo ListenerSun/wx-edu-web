@@ -1,39 +1,40 @@
 <template>
   <div>
     <el-col :span="20">
-        <!--工具条-->
-          <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
-            <el-form-item label="年份" prop="year">
-              <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
-            </el-form-item>
-            <el-form-item label="年级" prop="grade">
-              <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex">
-                <el-input placeholder="年级" prefix-icon="el-icon-search"></el-input>
-                <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
-                           :value="item.name"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-button type="primary" size="small" @click="queryClassInfoList(searchForm)">检索</el-button>
-            <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
-          </el-form>
+      <!--工具条-->
+      <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
+        <el-form-item label="年份" prop="year">
+          <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
+        </el-form-item>
+        <el-form-item label="年级" prop="grade">
+          <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex">
+            <el-input placeholder="年级" prefix-icon="el-icon-search"></el-input>
+            <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
+                       :value="item.name"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-button type="primary" size="small" @click="queryClassInfoList(searchForm)">检索</el-button>
+        <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
 
-        <!-- 表格 -->
-        <el-table :data="classDataList" border style="width: 100%">
-          <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
-          <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
-          <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>
-          <el-table-column prop="days" label="补课天数" align="center"></el-table-column>
-          <el-table-column prop="planAmount" label="计划招生数" align="center"></el-table-column>
-          <el-table-column prop="hasAmount" label="已报名人数" align="center"></el-table-column>
-          <el-table-column prop="enrollState" label="招生状态" align="center"></el-table-column>
-          <el-table-column prop="year" label="年份" align="center"></el-table-column>
-          <el-table-column label="操作" align="center" width="200px">
-            <template slot-scope="scope">
-              <el-button type="primary" size="small" @click="enrollClass(scope.$index, scope)">发布招生</el-button>
-              <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+      </el-form>
+
+      <!-- 表格 -->
+      <el-table :data="classDataList" border style="width: 100%">
+        <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
+        <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
+        <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>
+        <el-table-column prop="days" label="补课天数" align="center"></el-table-column>
+        <el-table-column prop="planAmount" label="计划招生数" align="center"></el-table-column>
+        <el-table-column prop="hasAmount" label="已报名人数" align="center"></el-table-column>
+        <el-table-column prop="enrollState" label="招生状态" align="center"></el-table-column>
+        <el-table-column prop="year" label="年份" align="center"></el-table-column>
+        <el-table-column label="操作" align="center" width="200px">
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" @click="enrollClass(scope.$index, scope)">发布招生</el-button>
+            <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-col>
     <!--新增弹窗-->
     <el-dialog title="新增补课班级信息" :visible.sync="dialogFormVisible" :modal="false" @close="handleClose" center
@@ -82,7 +83,7 @@
 <script>
   export default {
     inject: ['reload'],
-    data () {
+    data() {
       return {
         classDataList: [],
         dialogFormVisible: false,
@@ -172,11 +173,11 @@
     },
     methods: {
 
-      goBack () {
+      goBack() {
         console.log('go back')
       },
       // 关闭补课班级信息弹框操作
-      handleClose () {
+      handleClose() {
         this.$refs.formData.resetFields()
         this.$emit('handleClose')
         this.reload()
@@ -202,7 +203,7 @@
         })
       },
       // 删除表格行
-      handleDelete (index) {
+      handleDelete(index) {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -230,8 +231,8 @@
           })
         })
       },
-    // 发布招生
-      enrollClass(index){
+      // 发布招生
+      enrollClass(index) {
         this.$confirm('确定要发布该课程招生么?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -261,11 +262,11 @@
       },
 
       //检索方法
-      queryClassInfoList (searchForm) {
+      queryClassInfoList(searchForm) {
         var url = this.HOME + '/student/class_info/list'
         this.HTTP.post(url, searchForm).then((res) => {
           if (res.success == true) {
-            let enrollStateArray = ['待招生', '招生中', '已招满','停止招生']
+            let enrollStateArray = ['待招生', '招生中', '已招满', '停止招生']
             res.data.forEach(item => {
               item.enrollState = enrollStateArray[item.enrollState]
             })
@@ -283,7 +284,7 @@
         })
       }
     },
-    mounted () {
+    mounted() {
       this.queryClassInfoList(this.searchForm)
     }
   }
