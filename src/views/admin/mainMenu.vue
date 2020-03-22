@@ -1,6 +1,6 @@
 <template>
   <el-col :span="4">
-    <div style="height:685px;background:#304156">
+    <div style="height:720px;background:#304156">
       <el-menu class="menuClass" default-active text-color="white" background-color="#304156" router>
         <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-submenu index="2">

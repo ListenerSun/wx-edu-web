@@ -40,7 +40,7 @@
       return {
         loading: false,
         loginData: {
-          phone: '17629211310',
+          phone: '15229353828',
           password: '123456'
         },
         rules: {

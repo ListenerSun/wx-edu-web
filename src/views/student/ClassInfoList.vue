@@ -2,24 +2,23 @@
   <div>
     <el-col :span="20">
       <!--工具条-->
-      <el-form v-model="searchForm" :inline="true" class="searchForm" label-width="50px">
-        <el-form-item label="年份" prop="year">
-          <el-input placeholder="年份" prefix-icon="el-icon-search"></el-input>
+      <el-form v-model="searchForm" :inline="true" class="searchForm" >
+        <el-form-item label="年份" prop="year" label-width="70px">
+          <el-input placeholder="年份" prefix-icon="el-icon-search" style="width:150px;"></el-input>
         </el-form-item>
         <el-form-item label="年级" prop="grade">
-          <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex">
-            <el-input placeholder="年级" prefix-icon="el-icon-search"></el-input>
+          <el-select v-model="searchForm.grade" filterable placeholder="请选择" prop="sex" style="width:150px">
             <el-option v-for="item in gradeOptions" :key="item.code" :label="item.name"
                        :value="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-button type="primary" size="small" @click="queryClassInfoList(searchForm)">检索</el-button>
-        <el-button type="primary" size="small" @click="dialogFormVisible=true">新增</el-button>
+        <el-button type="primary" size="medium" @click="queryClassInfoList(searchForm)">检索</el-button>
+        <el-button type="primary" size="medium" @click="dialogFormVisible=true">新增</el-button>
 
       </el-form>
 
       <!-- 表格 -->
-      <el-table :data="classDataList" border style="width: 100%">
+      <el-table :data="classDataList" border style="width: 100%" height="600">
         <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
         <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
         <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>

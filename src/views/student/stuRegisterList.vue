@@ -8,11 +8,11 @@
         <el-input v-model="searchFormData.studentName" placeholder="根据姓名查询" prefix-icon="el-icon-search"></el-input>
       </el-form-item>
       <el-button type="primary" size="medium" @click="queryStuRegisterInfo(searchFormData)">检索</el-button>
-      <el-button type="primary" size="medium" @click="dialogFormVisible=true">导出</el-button>
+      <el-button type="primary" size="medium" @click="exportExcel()">导出</el-button>
     </el-form>
     <!-- 表格 -->
-    <el-table :data="stuRegisterListData" border class="stuRegisterTable">
-      <el-table-column type="selection" width="55" lable="全选" align="center"></el-table-column>
+    <el-table :data="stuRegisterListData" border class="stuRegisterTable" @selection-change="handleSelectionChange">
+      <el-table-column  prop="id" type="selection" width="55" lable="全选" align="center"></el-table-column>
       <el-table-column prop="studentName" label="学生姓名" width="120" align="center"></el-table-column>
       <el-table-column prop="phone" label="联系方式" width="150" align="center"></el-table-column>
       <el-table-column prop="className" label="班级名称" width="150" align="center"></el-table-column>
@@ -32,6 +32,7 @@
     components: {},
     data() {
       return {
+        selectRows: [],
         stuRegisterListData: [],
         searchFormData: {
           phone: '',
@@ -42,11 +43,47 @@
       }
     },
     methods: {
+      //选中方法
+      handleSelectionChange(val) {
+        this.selectRows = val
+      },
       // 查询报名信息接口
       queryStuRegisterInfo(searchFormData) {
         let url = this.HOME + '/student/class_order/list'
         this.HTTP.post(url, searchFormData).then(res => {
           this.stuRegisterListData = res.data
+        })
+      },
+      //导出表格
+      exportExcel() {
+        let url = this.HOME + '/student/class_order/exportExcel'
+        let selectIds = []
+        this.selectRows.forEach(e => {
+          selectIds.push(e.id)
+        })
+        console.log(selectIds)
+        this.$axios(
+          {
+            method: 'post',
+            url: url,
+            data: JSON.stringify(selectIds),
+            responseType: 'blob'
+          }
+        ).then(res => {
+          // 将文件流转成blob形式
+          const blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+          let filename = 'test.xls'
+          // 创建一个超链接，将文件流赋进去，然后实现这个超链接的单击事件
+          const elink = document.createElement('a')
+          elink.download = filename
+          elink.style.display = 'none'
+          elink.href = URL.createObjectURL(blob)
+          document.body.appendChild(elink)
+          elink.click()
+          URL.revokeObjectURL(elink.href) // 释放URL 对象
+          document.body.removeChild(elink)
+        }).catch(() => {
+          this.$message.error('导出失败')
         })
       }
     },
