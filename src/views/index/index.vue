@@ -4,7 +4,9 @@
     <el-col :span="17">
       <el-carousel :interval="4000" type="card" height="300px">
         <el-carousel-item v-for="item in 6" :key="item">
-          <img src="./yangbo.png">
+          <el-card>
+            <img src="./yangbo.png">
+          </el-card>
         </el-carousel-item>
       </el-carousel>
     </el-col>
@@ -21,7 +23,7 @@
           <el-button type="primary" size="medium" @click="queryStuRegisterInfo(searchFormData)">查询报名信息</el-button>
         </el-form-item>
       </el-form>
-      <el-table v-show="isShow" :data="stuRegisterListData" border style="width: 100%">
+      <el-table v-show="isShow" :data="stuRindexegisterListData" border style="width: 100%">
         <el-table-column prop="studentName" label="学生姓名" width="100" align="center"></el-table-column>
         <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
         <el-table-column prop="className" label="班级名称" align="center"></el-table-column>
@@ -95,7 +97,7 @@
   export default {
     inject: ['reload'],
     name: 'index',
-    data() {
+    data () {
       return {
         stuRegisterListData: [],
         isShow: false,
@@ -137,7 +139,7 @@
         }
       }
     },
-    mounted() {
+    mounted () {
       var url = this.HOME + '/student/class_info/enroll/list'
       this.HTTP.post(url, null).then((res) => {
         if (res.success == true) {
@@ -165,12 +167,12 @@
         this.$router.push('/Admin')
       },
       //打开弹窗
-      openDialog(index) {
-        this.dialogFormVisible = true;
+      openDialog (index) {
+        this.dialogFormVisible = true
         this.classInfoId = this.classDataList[index].id
       },
       // 报名
-      onSubmit(formData) {
+      onSubmit (formData) {
         console.log(formData)
         this.$refs.stuRegisterForm.validate(valid => {
           alert(valid)
@@ -194,7 +196,7 @@
         })
       },
       // 查询报名信息接口
-      queryStuRegisterInfo(searchFormData) {
+      queryStuRegisterInfo (searchFormData) {
         let url = this.HOME + '/student/class_order/query'
         this.$refs.searchFormData.validate((valid) => {
           if (valid) {
