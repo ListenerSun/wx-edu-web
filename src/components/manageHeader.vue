@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="20">
+  <el-col :span="21">
     <div style="background:#304156;height:65px;">jjjjjj</div>
   </el-col>
 

@@ -23,7 +23,7 @@
           <el-button type="primary" size="medium" @click="queryStuRegisterInfo(searchFormData)">查询报名信息</el-button>
         </el-form-item>
       </el-form>
-      <el-table v-show="isShow" :data="stuRindexegisterListData" border style="width: 100%">
+      <el-table v-show="isShow" :data="stuRegisterListData" border style="width: 100%">
         <el-table-column prop="studentName" label="学生姓名" width="100" align="center"></el-table-column>
         <el-table-column prop="phone" label="联系方式" width="120" align="center"></el-table-column>
         <el-table-column prop="className" label="班级名称" align="center"></el-table-column>

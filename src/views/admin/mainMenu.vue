@@ -1,7 +1,9 @@
 <template>
-  <el-col :span="4">
-    <div style="height:720px;background:#304156">
-      <el-menu class="menuClass" default-active text-color="white" background-color="#304156" router>
+  <el-col :span="3" style="height: 100%">
+    <!--    <div style="height:720px;background:#304156">-->
+    <el-row style="height: 100%">
+      <el-menu class="menuClass" default-active text-color="white" background-color="#304156" collapse-transition="true"
+               router>
         <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-user-solid"></i>学生管理</template>
@@ -11,14 +13,20 @@
         </el-submenu>
         <el-submenu index="3">
           <template slot="title"><i class="el-icon-plus"></i>讲师管理</template>
-          <el-menu-item index="addGoods">讲师审核</el-menu-item>
+          <el-menu-item index="/index">讲师审核</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
+          <template slot="title"><i class="el-icon-plus"></i>课程管理</template>
+          <el-menu-item index="/manage/courseList">课程列表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="5">
           <template slot="title"><i class="el-icon-warning"></i>说明</template>
           <el-menu-item index="explain">说明</el-menu-item>
         </el-submenu>
       </el-menu>
-    </div>
+    </el-row>
+
+    <!--    </div>-->
   </el-col>
 </template>
 
