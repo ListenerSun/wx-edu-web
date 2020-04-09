@@ -2,7 +2,7 @@
   <el-col :span="3" style="height: 100%">
     <!--    <div style="height:720px;background:#304156">-->
     <el-row style="height: 100%">
-      <el-menu class="menuClass" default-active text-color="white" background-color="#304156" collapse-transition="true"
+      <el-menu class="menuClass" default-active text-color="white" background-color="#304156" :collapse-transition="true"
                router>
         <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-submenu index="2">

@@ -14,7 +14,6 @@
         </el-form-item>
         <el-button type="primary" size="medium" @click="queryClassInfoList(searchForm)">检索</el-button>
         <el-button type="primary" size="medium" @click="dialogFormVisible=true">新增</el-button>
-
       </el-form>
 
       <!-- 表格 -->
