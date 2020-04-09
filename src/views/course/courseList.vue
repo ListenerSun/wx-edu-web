@@ -83,7 +83,7 @@
       //新增课程
       submit(courseFormData){
         let url = this.HOME + '/course/edu/course/create'
-        this.HTTP.post(url,this.courseFormData).then(res => {
+        this.HTTP.post(url,courseFormData).then(res => {
           if (res.success == true) {
             this.$message.success('添加成功')
             this.$emit('submit')

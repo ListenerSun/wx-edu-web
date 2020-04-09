@@ -14,7 +14,8 @@ Vue.use(Mint);
 // 定义全局 axios
 Vue.prototype.HTTP = HttpUtils
 // 后端请求地址
-Vue.prototype.HOME = 'http://wx-edu/wx_edu'
+// Vue.prototype.HOME = 'http://wx-edu/wx_edu'
+Vue.prototype.HOME = 'http://lcoalhost:9400'
 //全局使用ElementUI
 Vue.use(ElementUI)
 //全局注册，使用方法为:this.$axios
