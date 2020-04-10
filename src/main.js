@@ -15,7 +15,7 @@ Vue.use(Mint);
 Vue.prototype.HTTP = HttpUtils
 // 后端请求地址
 // Vue.prototype.HOME = 'http://wx-edu/wx_edu'
-Vue.prototype.HOME = 'http://lcoalhost:9400'
+Vue.prototype.HOME = 'http://localhost:8000'
 //全局使用ElementUI
 Vue.use(ElementUI)
 //全局注册，使用方法为:this.$axios

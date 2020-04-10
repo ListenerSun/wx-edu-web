@@ -11,14 +11,14 @@
       </el-form>
     </div>
     <!-- 表格 -->
-    <el-table :data="courseDataList" border style="width: 120%; margin-left: 30px;" height="600">
+    <el-table :data="courseDataList" border class="courseDataTable" height="600">
       <el-table-column prop="courseName" label="课程名字" width="180" align="center"></el-table-column>
       <el-table-column prop="courseName" label="课程分类" width="180" align="center"></el-table-column>
       <el-table-column prop="coursePrice" label="课程价格" width="180" align="center"></el-table-column>
       <el-table-column prop="discountPrice" label="打折价格" width="180" align="center"></el-table-column>
-      <el-table-column prop="courseLogo" label="课程Logo" width="180" align="center"></el-table-column>
+      <el-table-column prop="courseTeacherName" label="讲师姓名" width="180" align="center"></el-table-column>
       <el-table-column prop="isFree" label="是否免费" align="center"></el-table-column>
-      <el-table-column prop="isVideo" label="视频课程" align="center"></el-table-column>
+      <el-table-column prop="isVideo" label="是否视频课程" align="center"></el-table-column>
       <el-table-column label="操作" align="center" width="200px">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="">上架</el-button>
@@ -58,8 +58,6 @@
       </div>
     </el-dialog>
   </el-col>
-
-
 </template>
 
 <script>
@@ -68,7 +66,7 @@
     inject: ['reload'],
     data () {
       return {
-        uploadUrl: 'http://localhost:9300/course/common/oss/upload',
+        uploadUrl: 'http://localhost:9400/course/common/oss/upload',
         courseSearchForm: {
           courseName: ''
         },
@@ -81,9 +79,9 @@
     },
     methods: {
       //新增课程
-      submit(courseFormData){
+      submit (courseFormData) {
         let url = this.HOME + '/course/edu/course/create'
-        this.HTTP.post(url,courseFormData).then(res => {
+        this.HTTP.post(url, courseFormData).then(res => {
           if (res.success == true) {
             this.$message.success('添加成功')
             this.$emit('submit')
@@ -101,15 +99,37 @@
         })
       },
       //上传成功回调函数
-      uploadSuccess(response){
-        if (response.success){
+      uploadSuccess (response) {
+        if (response.success) {
           this.courseFormData.courseLogo = response.data.allPath
         }
+      },
+      //查询所有课程列表
+      queryCourseList () {
+        let url = this.HOME + '/course/edu/course/list'
+        this.HTTP.get(url, null).then(res => {
+          if (res.success) {
+            this.courseDataList = res.data
+          } else {
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'error'
+            })
+          }
+        })
       }
+    },
+    // 钩子
+    mounted () {
+      this.queryCourseList()
     }
   }
 </script>
 
 <style scoped>
-
+  .courseDataTable{
+    width: 100%;
+    margin: 0 0 0 30px;
+  }
 </style>

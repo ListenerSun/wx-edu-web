@@ -21,6 +21,7 @@
       <el-table-column prop="address" label="家庭地址" width="180" align="center"></el-table-column>
       <el-table-column prop="year" label="年份" width="120" align="center"></el-table-column>
     </el-table>
+
   </el-col>
 
 </template>
@@ -110,11 +111,15 @@
 <style scoped>
   .searchForm {
     padding-top: 10px;
+    width: 60%;
+    margin-top: 30px;
+    padding-left: 0
   }
 
   /*学生信息表格*/
   .stuRegisterTable {
-    width: 100%;
-    margin: 0 0 0 90px;
+    width: 64.6%;
+    margin: 0 0 0 60px;
+
   }
 </style>

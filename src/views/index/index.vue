@@ -141,7 +141,7 @@
     },
     mounted () {
       var url = this.HOME + '/student/class_info/enroll/list'
-      this.HTTP.post(url, null).then((res) => {
+      this.HTTP.get(url, null).then((res) => {
         if (res.success == true) {
           let enrollStateArray = ['招生中', '已招满']
           res.data.forEach(item => {

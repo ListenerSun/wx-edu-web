@@ -17,7 +17,7 @@
       </el-form>
 
       <!-- 表格 -->
-      <el-table :data="classDataList" border style="width: 100%" height="600">
+      <el-table :data="classDataList" border class="classDataTable" height="600">
         <el-table-column prop="className" label="班级名称" width="180" align="center"></el-table-column>
         <el-table-column prop="subjects" label="科目" width="180" align="center"></el-table-column>
         <el-table-column prop="grade" label="年级" width="180" align="center"></el-table-column>
@@ -289,5 +289,9 @@
 </script>
 
 <style scoped>
+  .classDataTable{
+    width: 100%;
+    margin: 0 0 0 30px;
+  }
 
 </style>
