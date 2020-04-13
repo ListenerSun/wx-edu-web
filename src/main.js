@@ -22,6 +22,8 @@ Vue.use(ElementUI)
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
+Vue.prototype.dicListKey = 'dicListKey'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

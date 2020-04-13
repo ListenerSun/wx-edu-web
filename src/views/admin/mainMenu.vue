@@ -2,6 +2,12 @@
   <el-col :span="3" style="height: 100%">
     <!--    <div style="height:720px;background:#304156">-->
     <el-row style="height: 100%">
+      <!--<el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+        <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+      </el-tabs>-->
       <el-menu class="menuClass" default-active text-color="white" background-color="#304156" :collapse-transition="true"
                router>
         <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>

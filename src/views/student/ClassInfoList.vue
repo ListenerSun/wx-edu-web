@@ -107,66 +107,8 @@
             code: '2'
           }
         ],
-        gradeOptions: [
-          {
-            name: '一年级',
-            code: '1'
-          },
-          {
-            name: '二年级',
-            code: '2'
-          },
-          {
-            name: '三年级',
-            code: '3'
-          },
-          {
-            name: '四年级',
-            code: '4'
-          },
-          {
-            name: '五年级',
-            code: '5'
-          },
-          {
-            name: '六年级',
-            code: '6'
-          },
-          {
-            name: '七年级',
-            code: '7'
-          },
-          {
-            name: '八年级',
-            code: '8'
-          },
-          {
-            name: '九年级',
-            code: '9'
-          }
-        ],
-        subjectOptions: [
-          {
-            name: '语文',
-            code: '1'
-          },
-          {
-            name: '数学',
-            code: '2'
-          },
-          {
-            name: '英语',
-            code: '3'
-          },
-          {
-            name: '物理',
-            code: '4'
-          },
-          {
-            name: '化学',
-            code: '5'
-          }
-        ]
+        gradeOptions: [],
+        subjectOptions: []
       }
     },
     methods: {
@@ -284,6 +226,10 @@
     },
     mounted() {
       this.queryClassInfoList(this.searchForm)
+      let dicListObj = JSON.parse(localStorage.getItem(this.dicListKey))
+      console.log(dicListObj)
+      this.gradeOptions = dicListObj.grade_type
+      this.subjectOptions = dicListObj.subject
     }
   }
 </script>

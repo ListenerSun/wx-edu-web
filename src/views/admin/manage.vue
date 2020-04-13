@@ -18,7 +18,21 @@
     components: {
       mainMenu,
       manageHeader
-    }
+    },
+    methods: {
+      // 获取字典列表
+      getAllDicList(){
+        let url = this.HOME + "/course/common/dic/list"
+        this.HTTP.get(url,null).then(res => {
+          if (res.success){
+            localStorage.setItem(this.dicListKey,JSON.stringify(res.data))
+          }
+        })
+      }
+    },
+  mounted () {
+      this.getAllDicList()
+  }
   }
 </script>
 
