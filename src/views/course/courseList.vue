@@ -11,14 +11,15 @@
       </el-form>
     </div>
     <!-- 表格 -->
-    <el-table :data="courseDataList" border class="courseDataTable" height="600">
-      <el-table-column prop="courseName" label="课程名字" width="180" align="center"></el-table-column>
-      <el-table-column prop="courseName" label="课程分类" width="180" align="center"></el-table-column>
-      <el-table-column prop="coursePrice" label="课程价格" width="180" align="center"></el-table-column>
-      <el-table-column prop="discountPrice" label="打折价格" width="180" align="center"></el-table-column>
-      <el-table-column prop="courseTeacherName" label="讲师姓名" width="180" align="center"></el-table-column>
-      <el-table-column prop="isFree" label="是否免费" align="center"></el-table-column>
-      <el-table-column prop="isVideo" label="是否视频课程" align="center"></el-table-column>
+    <el-table :data="courseDataList" border class="courseDataTable" >
+      <el-table-column prop="courseName" label="课程名字" width="180px" align="center"></el-table-column>
+      <el-table-column prop="courseType" label="课程分类" width="180px" align="center"></el-table-column>
+      <el-table-column prop="coursePrice" label="课程原价" width="120px" :formatter="coursePriceFormatter" align="center"></el-table-column>
+      <el-table-column prop="discountPrice" label="活动价" width="120px" :formatter="coursePriceFormatter" align="center"></el-table-column>
+      <el-table-column prop="courseTeacherName" label="讲师姓名" width="140px" align="center"></el-table-column>
+      <el-table-column prop="isFree" label="是否免费" :formatter="isFreeFormatter" align="center" width="100px"></el-table-column>
+      <el-table-column prop="isVideo" label="是否视频" align="center" width="120px" :formatter="isVideoFormatter" ></el-table-column>
+      <el-table-column prop="courseState" label="上架状态" align="center" width="120px"  ></el-table-column>
       <el-table-column label="操作" align="center" width="200px">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="">上架</el-button>
@@ -39,17 +40,19 @@
                     style="width:150px;margin-left: 30px"></el-input>
         </el-form-item>
         <el-form-item label="课程Logo" label-width="80px" style="padding-right: 40px">
-          <el-input v-model="courseFormData.courseLogo" :disabled="true"></el-input>
           <el-upload
             :on-success="uploadSuccess"
             :action="uploadUrl"
-            list-type="picture">
+            list-type="picture"
+            style="width:150px;margin-left: 30px">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
-
-        <el-form-item label="是否免费" label-width="70px">
-          <el-input v-model="courseFormData.isFree" autocomplete="off" style="width:150px;margin-left: 30px"></el-input>
+        <el-form-item label="收费状态" label-width="70px">
+          <el-radio-group v-model="courseFormData.isFree" style="width:150px; margin-left:30px">
+            <el-radio label=true>收费</el-radio>
+            <el-radio label=false>免费</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -66,7 +69,7 @@
     inject: ['reload'],
     data () {
       return {
-        uploadUrl: 'http://localhost:9400/course/common/oss/upload',
+        uploadUrl: this.HOME + '/course/common/oss/upload',
         courseSearchForm: {
           courseName: ''
         },
@@ -78,6 +81,18 @@
       }
     },
     methods: {
+      //coursePriceFormatter
+      coursePriceFormatter(row, column, cellValue, index) {
+        return cellValue + '元'
+      },
+      //isFreeFormatter
+      isFreeFormatter (row, column, cellValue, index) {
+        return cellValue === true ? '是' : '否'
+      },
+      //isVideoFormatter
+      isVideoFormatter  (row, column, cellValue, index) {
+        return cellValue === true ? '是' : '否'
+      },
       //新增课程
       submit (courseFormData) {
         let url = this.HOME + '/course/edu/course/create'
@@ -128,8 +143,8 @@
 </script>
 
 <style scoped>
-  .courseDataTable{
-    width: 100%;
-    margin: 0 0 0 30px;
+  .courseDataTable {
+    width: 1162px;
+    margin: 0 0 0 60px;
   }
 </style>
