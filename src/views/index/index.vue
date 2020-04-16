@@ -12,7 +12,7 @@
     </el-col>
     <!-- 查询学生报名信息-->
     <el-col :span="17">
-      <el-form ref="searchFormData" :model="searchFormData" :rules="rules" :inline="true" label-width="70px">
+      <el-form ref="searchFormData" :model="searchFormData" :rules="rules" :inline="true" label-width="70px" style="margin-left: ">
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="searchFormData.phone" placeholder="根据手机号查询"></el-input>
         </el-form-item>
@@ -35,7 +35,7 @@
     </el-col>
     <el-col :span="21">
       <!-- 表格 -->
-      <el-table :data="classDataList" border style="width: 100%">
+      <el-table :data="classDataList" border style="width: 945px">
         <el-table-column prop="className" label="班级名称" width="130" align="center"></el-table-column>
         <el-table-column prop="subjects" label="补课科目" width="130" align="center"></el-table-column>
         <el-table-column prop="grade" label="年级" width="100" align="center"></el-table-column>

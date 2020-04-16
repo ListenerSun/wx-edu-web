@@ -18,16 +18,16 @@
           <el-menu-item index="/index">报名</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
-          <template slot="title"><i class="el-icon-plus"></i>讲师管理</template>
+          <template slot="title"><i class="el-icon-user"></i>讲师管理</template>
           <el-menu-item index="/index">讲师审核</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
-          <template slot="title"><i class="el-icon-plus"></i>课程管理</template>
+          <template slot="title"><i class="el-icon-reading"></i>课程管理</template>
           <el-menu-item index="/manage/courseList">课程列表</el-menu-item>
         </el-submenu>
         <el-submenu index="5">
-          <template slot="title"><i class="el-icon-warning"></i>说明</template>
-          <el-menu-item index="explain">说明</el-menu-item>
+          <template slot="title"><i class="el-icon-s-tools"></i>系统配置</template>
+          <el-menu-item index="">说明</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-row>
