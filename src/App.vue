@@ -40,5 +40,5 @@
 </script>
 
 <style>
-
+  @import "static/css/icon/iconfont.css";
 </style>

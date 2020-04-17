@@ -6,6 +6,7 @@ import stuRegisterList from '../views/student/stuRegisterList'
 import manage from "../views/admin/manage";
 import index from "../views/index/index";
 import courseList from '../views/course/courseList'
+import courseInfo from '../views/course/courseInfo'
 
 const routerPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -44,6 +45,11 @@ export default new Router({
           path: 'courseList',
           name: 'courseList',
           component: courseList
+        },
+        {
+          path: 'courseInfo',
+          name: 'courseInfo',
+          component: courseInfo
         }
       ]
     },

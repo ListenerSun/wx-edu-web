@@ -3,6 +3,7 @@
     <el-col>
       <mainMenu/>
       <manage-header/>
+      <menu-tab/>
       <router-view>
       </router-view>
     </el-col>
@@ -10,12 +11,14 @@
 </template>
 
 <script>
-  import manageHeader from "../../components/manageHeader";
+  import manageHeader from "./manageHeader";
   import mainMenu from './mainMenu'
+  import MenuTab from './menuTab'
 
   export default {
     name: 'manage',
     components: {
+      MenuTab,
       mainMenu,
       manageHeader
     },
