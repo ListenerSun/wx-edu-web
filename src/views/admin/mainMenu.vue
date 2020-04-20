@@ -19,7 +19,7 @@
         </el-submenu>
         <el-submenu index="3">
           <template slot="title"><i class="iconfont icon-jiaoyu2" style="font-size: 21px;font-weight: bold;padding-right: 3px"></i><span>讲师管理</span></template>
-          <el-menu-item index="/index">讲师审核</el-menu-item>
+          <el-menu-item index="/manage/classInfoList">讲师列表</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title"><i class="iconfont icon-kecheng" style="font-size: 16px;padding-right: 3px"></i><span>课程管理</span></template>
@@ -39,7 +39,6 @@
         </el-submenu>
       </el-menu>
     </el-row>
-
     <!--    </div>-->
   </el-col>
 </template>

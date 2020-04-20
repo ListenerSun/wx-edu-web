@@ -62,7 +62,6 @@
         this.selectRows.forEach(e => {
           selectIds.push(e.id)
         })
-        console.log(selectIds)
         this.$axios(
           {
             method: 'post',
