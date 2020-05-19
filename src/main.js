@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Mint from 'mint-ui';
 
 
+
 Vue.use(Mint);
 // 定义全局 axios
 Vue.prototype.HTTP = HttpUtils
